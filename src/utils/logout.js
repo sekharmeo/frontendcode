@@ -1,8 +1,12 @@
-// src/utils/logout.js
-// src/utils/logout.js
+import { useNavigate } from "react-router-dom";
+
 export const logout = () => {
-    localStorage.clear(); // Remove all stored user data
-    sessionStorage.clear(); // Remove session data if used
-  };
-  
-  
+  const navigate = useNavigate(); // Initialize navigate function
+
+  localStorage.removeItem("token"); // Remove token
+  localStorage.clear(); // Clear all stored data (optional)
+  sessionStorage.clear(); // Clear session data if used
+
+  // Navigate to login page
+  navigate("/login"); // Use React Router navigation
+};
