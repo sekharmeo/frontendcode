@@ -56,12 +56,9 @@ const AdminWebMenu = ({ isOpen, setIsOpen, handleLogout, menuRef }) => {
 
         {/* Logout Button */}
         <li className="w-full">
-          <button
-            onClick={handleLogout}
-            className="flex items-center gap-4 p-4 w-full hover:bg-red-500 text-white"
-          >
-            <LogOut className="h-6 w-6" />
-            {isOpen && <span className="hidden md:block">Logout</span>}
+          <button onClick={handleLogout} className="flex items-center p-4 text-red-500">
+            <LogOut />
+            {isOpen && <span>Logout</span>}
           </button>
         </li>
       </ul>
@@ -105,9 +102,6 @@ const AdminMenu = () => {
   const handleLogout = () => {
     logout();
     navigate("/");
-    setTimeout(() => {
-      window.location.reload();
-    }, 300);
   };
 
   return (
