@@ -1,16 +1,13 @@
-import { useNavigate } from "react-router-dom";
+export const logout = (navigate) => {
+  localStorage.removeItem("token"); // Remove token
+  localStorage.clear(); // Clear all stored data
+  sessionStorage.clear(); // Clear session data if used
 
-export const useLogout = () => {
-  const navigate = useNavigate();
+  // Force a re-render and redirect using navigate
+  navigate("/", { replace: true });
 
-  return () => {
-    localStorage.removeItem("token"); // Remove token
-    localStorage.clear(); // Clear all stored data
-    sessionStorage.clear(); // Clear session data if used
-
-    navigate("/login"); // Redirect to login page
-    setTimeout(() => {
-      window.location.reload(); // Optional: Force reload to clear state
-    }, 300);
-  };
+  // Ensure state is reset properly
+  setTimeout(() => {
+    window.location.reload();
+  }, 300);
 };
