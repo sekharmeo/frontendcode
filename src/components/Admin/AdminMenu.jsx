@@ -10,7 +10,6 @@ import {
   LogOut,
   Menu as MenuIcon,
 } from "lucide-react";
-import { logout } from "../../utils/logout";
 
 const menuItems = [
   { icon: Home, label: "Home", path: "/admin" },
@@ -29,7 +28,6 @@ const AdminWebMenu = ({ isOpen, setIsOpen, handleLogout, menuRef }) => {
         isOpen ? "w-35" : "w-16"
       } z-50`}
     >
-      {/* Toggle Button */}
       <button
         className="w-full flex items-center justify-center md:justify-start px-4 py-3 hover:bg-gray-700"
         onClick={(e) => {
@@ -39,8 +37,6 @@ const AdminWebMenu = ({ isOpen, setIsOpen, handleLogout, menuRef }) => {
       >
         <MenuIcon className="h-6 w-6" />
       </button>
-
-      {/* Menu Items */}
       <ul className="flex flex-col w-full">
         {menuItems.map(({ icon: Icon, label, path }, index) => (
           <li key={index} className="w-full">
@@ -53,12 +49,13 @@ const AdminWebMenu = ({ isOpen, setIsOpen, handleLogout, menuRef }) => {
             </Link>
           </li>
         ))}
-
-        {/* Logout Button */}
         <li className="w-full">
-          <button onClick={handleLogout} className="flex items-center p-4 text-red-500">
-            <LogOut />
-            {isOpen && <span>Logout</span>}
+          <button
+            onClick={handleLogout}
+            className="flex items-center gap-4 p-4 w-full hover:bg-red-500 text-white"
+          >
+            <LogOut className="h-6 w-6" />
+            {isOpen && <span className="hidden md:block">Logout</span>}
           </button>
         </li>
       </ul>
@@ -74,8 +71,6 @@ const AdminMobileMenu = ({ handleLogout }) => {
           <Icon className="h-6 w-6" />
         </Link>
       ))}
-
-      {/* Mobile Logout Button */}
       <button onClick={handleLogout} className="p-2 flex flex-col items-center text-red-500">
         <LogOut className="h-6 w-6" />
       </button>
@@ -100,22 +95,21 @@ const AdminMenu = () => {
   }, []);
 
   const handleLogout = () => {
-    logout();
-    navigate("/");
+    localStorage.removeItem("token");
+    sessionStorage.removeItem("token");
+    navigate("/login");
+    setTimeout(() => {
+      window.location.reload();
+    }, 300);
   };
 
   return (
     <>
-      {/* Web Sidebar */}
       <AdminWebMenu isOpen={isOpen} setIsOpen={setIsOpen} handleLogout={handleLogout} menuRef={menuRef} />
-
-      {/* Mobile Bottom Navbar */}
       <AdminMobileMenu handleLogout={handleLogout} />
-
-     {/* Main Content Wrapper (Prevents Overlap) */}
-    <div>
-      {/* Your Page Content Will Go Here */}
-    </div>
+      <div>
+        {/* Your Page Content Will Go Here */}
+      </div>
     </>
   );
 };
