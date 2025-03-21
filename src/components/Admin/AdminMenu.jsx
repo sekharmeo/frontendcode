@@ -103,11 +103,8 @@ const AdminMenu = () => {
   }, []);
 
   const handleLogout = () => {
-    logout();
-    navigate("/");
-    setTimeout(() => {
-      window.location.reload();
-    }, 300);
+    logout(); // Clear storage
+    navigate("/"); // Redirect to login
   };
 
   return (
