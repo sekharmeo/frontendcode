@@ -8,5 +8,5 @@ export const logout = () => {
   sessionStorage.clear(); // Clear session data if used
 
   // Navigate to login page
-  navigate("/login"); // Use React Router navigation
+  navigate("/"); // Use React Router navigation
 };
